@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import BaseModel, Field, model_validator, ValidationError
 from datetime import datetime
 
 
@@ -73,5 +73,9 @@ def main():
             witness_count=2,
             message_received="Greetings from Zeta Reticuli"
         )
-    except ValueError as e:
-        print(e)
+    except ValidationError as e:
+        print(e.errors()[0]["msg"])
+
+
+if (__name__ == "__main__"):
+    main()
