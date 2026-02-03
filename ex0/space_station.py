@@ -3,14 +3,14 @@ from datetime import datetime
 
 
 class SpaceStation(BaseModel):
-    station_id: str = Field(min_length=3, max_length=20)
+    station_id: str = Field(min_length=3, max_length=10)
     name: str = Field(min_length=1, max_length=50)
     crew_size: int = Field(gt=0, le=20)
     power_level: float = Field(ge=0, le=100)
     oxygen_level: float = Field(ge=0, le=100)
     last_maintenance: datetime = Field()
     is_operational: bool = Field(default=True)
-    notes: str | None = Field(max_length=200, default=None)
+    notes: str = Field(max_length=200, default="")
 
 
 def main() -> None:
@@ -46,7 +46,7 @@ def main() -> None:
             last_maintenance=datetime.now()
         )
     except ValidationError as e:
-        print(e)
+        print(e.errors()[0]["msg"])
 
 
 main()
