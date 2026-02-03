@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_validator, ValidationError
 from datetime import datetime
 
 
@@ -108,8 +108,9 @@ def main():
             crew=[J, A],
             budget_millions=2500.0
         )
-    except ValueError as e:
-        print(e)
+    except ValidationError as e:
+        print(e.errors()[0]["msg"])
 
 
-main()
+if (__name__ == "__main__"):
+    main()
